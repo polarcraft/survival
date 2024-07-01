@@ -39,8 +39,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v1.0.4  # Update the tag name as needed
-        release_name: Release v1.0.4  # Update the release name as needed
+        tag_name: v1.0.5  # Update the tag name as needed
+        release_name: Release v1.0.5  # Update the release name as needed
         body: |
           Description of the release.
         draft: false
