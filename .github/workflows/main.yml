@@ -25,13 +25,13 @@ jobs:
       run: cd polarcraft_survival_resourcepack
       
     - name: Zip the folder
-      run: zip -r ../polarcraft_survival_resourcepack.zip *
+      run: zip -r polarcraft_survival_resourcepack.zip ./*
 
     - name: Upload zipped folder as an artifact
       uses: actions/upload-artifact@v3
       with:
         name: polarcraft_survival_resourcepack
-        path: ../polarcraft_survival_resourcepack.zip
+        path: polarcraft_survival_resourcepack.zip
 
     - name: Create resourcepack release
       id: create_release
@@ -52,6 +52,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ../polarcraft_survival_resourcepack.zip
+        asset_path: ..polarcraft_survival_resourcepack.zip
         asset_name: polarcraft_survival_resourcepack.zip
         asset_content_type: application/zip
