@@ -21,10 +21,11 @@ jobs:
     - name: Install zip package
       run: sudo apt-get install zip -y
 
+    - name: CD to folder
+      run: cd polarcraft_survival_resourcepack
+      
     - name: Zip the folder
-      run: |
-        cd polarcraft_survival_resourcepack
-        zip -r polarcraft_survival_resourcepack.zip
+      run: zip -r polarcraft_survival_resourcepack.zip
 
     - name: Upload zipped folder as an artifact
       uses: actions/upload-artifact@v3
