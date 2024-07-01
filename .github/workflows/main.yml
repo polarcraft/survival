@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   zip:
@@ -36,13 +37,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v1.0.0  # Update the tag name as needed
-        release_name: Release v1.0.0  # Update the release name as needed
+        tag_name: v1.0.1  # Update the tag name as needed
+        release_name: Release v1.0.1  # Update the release name as needed
         body: |
           Description of the release.
         draft: false
         prerelease: false
-        allowUpdates: true
 
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
