@@ -1,18 +1,31 @@
-name: Create resource pack zip file
-on: [push]
+name: Zip Folder
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  build:
+  zip:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@master
-    - name: Archive Release
-      uses: thedoctor0/zip-release@0.7.5
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js (for using npm install)
+      uses: actions/setup-node@v3
       with:
-        type: 'zip'
-        filename: 'polarcraft_survival_resource.zip'
-        exclusions: '/*polarcraft_survival_datapack/*'
-    - name: Upload Release
-      uses: ncipollo/release-action@v1.12.0
+        node-version: '14'
+
+    - name: Install zip package
+      run: sudo apt-get install zip -y
+
+    - name: Zip the folder
+      run: zip -r zipped_folder.zip polarcraft_survival_resourcepack
+
+    - name: Upload zipped folder as an artifact
+      uses: actions/upload-artifact@v3
       with:
-        artifacts: "release.zip"
-        token: ${{ secrets.GITHUB_TOKEN }}
+        name: polarcraft_survival_resourcepack
+        path: polarcraft_survival_resourcepack.zip
