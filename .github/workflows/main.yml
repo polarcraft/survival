@@ -25,7 +25,7 @@ jobs:
       run: cd polarcraft_survival_resourcepack
       
     - name: Zip the folder
-      run: zip -r -D polarcraft_survival_resourcepack.zip
+      run: zip -r ../polarcraft_survival_resourcepack.zip *
 
     - name: Upload zipped folder as an artifact
       uses: actions/upload-artifact@v3
