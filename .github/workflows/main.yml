@@ -1,4 +1,4 @@
-name: Zip Folder and Upload to Release
+name: Zip and release resourcepack
 
 on:
   push:
@@ -21,14 +21,10 @@ jobs:
       run: |
         zip -r polarcraft_survival_resourcepack.zip polarcraft_survival_resourcepack
         
-    - name: Delete existing release
-      run: |
-        TAG_NAME=$VERSION_TAG_NAME
-        RELEASE_ID=$(gh api repos/:owner/:repo/releases | jq -r ".[] | select(.tag_name == \"$TAG_NAME\") | .id")
-        if [ -n "$RELEASE_ID" ]; then
-          gh api repos/:owner/:repo/releases/$RELEASE_ID -X DELETE
-          git push origin :refs/tags/$TAG_NAME
-        fi
+    - name: Delete Existing Release
+      uses: Actions-R-Us/delete-release@v1
+      with:
+        tag_name: $VERSION_TAG_NAME
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
