@@ -17,7 +17,8 @@ jobs:
     # Step 2: Create a zip file of the specific folder
     - name: Zip the folder
       run: |
-        zip -r polarcraft_survival_resourcepack.zip polarcraft_survival_resourcepack
+        cd polarcraft_survival_resourcepack
+        zip -r polarcraft_survival_resourcepack.zip .
 
     - name: Bump version and push tag
       id: bump
