@@ -21,14 +21,13 @@ jobs:
         zip -r ../polarcraft_survival_resourcepack.zip .
 
     - name: Bump version and push tag
-      id: bump
-      uses: anothrNick/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
-        WITH_V: true
+      id: tag_version
+      uses: miguelfito/github-bump-and-tag-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Release
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${{ steps.bump.outputs.new_tag }}
+        tag_name: ${{ steps.tag_version.outputs.new_tag }}
         files: polarcraft_survival_resourcepack.zip
