@@ -27,6 +27,8 @@ jobs:
         token: ${{ github.token }}
         tag: $VERSION_TAG_NAME
         assets: 'polarcraft_survival_resourcepack.zip'
+        fail-if-no-release: false
+        fail-if-no-assets: false
         
     # Step 3: Create a release
     - name: Create Release
