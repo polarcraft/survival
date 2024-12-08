@@ -21,12 +21,14 @@ jobs:
       run: |
         zip -r polarcraft_survival_resourcepack.zip polarcraft_survival_resourcepack
         
-    - name: Delete Existing Release
-      uses: Actions-R-Us/delete-release@v1
+    - name: Delete old release assets
+      uses: mknejp/delete-release-assets@v1
       with:
-        tag_name: $VERSION_TAG_NAME
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ github.token }}
+        tag: $VERSION_TAG_NAME # This may also be of the form 'refs/tags/staging'
+        # Optional another repository
+        repository: owner/repo
+        assets: 'polarcraft_survival_resourcepack.zip'
         
     # Step 3: Create a release
     - name: Create Release
