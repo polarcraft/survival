@@ -1,0 +1,27 @@
+name: Zip Folder and Upload
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch (modify as needed)
+
+jobs:
+  zip-folder:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Create a zip file of the specific folder
+    - name: Zip the folder
+      run: |
+        zip -r polarcraft_survival_resourcepack.zip polarcraft_survival_resourcepack
+
+    # Step 3: Upload the zip as an artifact
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: folder-zip
+        path: polarcraft_survival_resourcepack.zip
