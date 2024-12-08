@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main  # Adjust as needed
-
+env:
+  VERSION_TAG_NAME: 1.0.0
+  
 jobs:
   zip-and-release:
     runs-on: ubuntu-latest
@@ -18,13 +20,24 @@ jobs:
     - name: Zip the folder
       run: |
         zip -r polarcraft_survival_resourcepack.zip polarcraft_survival_resourcepack
-
+        
+    - name: Delete existing release
+      run: |
+        TAG_NAME=$VERSION_TAG_NAME
+        RELEASE_ID=$(gh api repos/:owner/:repo/releases | jq -r ".[] | select(.tag_name == \"$TAG_NAME\") | .id")
+        if [ -n "$RELEASE_ID" ]; then
+          gh api repos/:owner/:repo/releases/$RELEASE_ID -X DELETE
+          git push origin :refs/tags/$TAG_NAME
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
     # Step 3: Create a release
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       with:
-        tag_name: "release-$(date +'%Y%m%d%H%M%S')"
+        tag_name: $VERSION_TAG_NAME
         release_name: Folder Zip Release
         draft: false
         prerelease: false
