@@ -25,7 +25,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ github.token }}
-        tag: ${{ VERSION_TAG_NAME }} # This may also be of the form 'refs/tags/staging'
+        tag: '${{ VERSION_TAG_NAME }}' # This may also be of the form 'refs/tags/staging'
         # Optional another repository
         repository: owner/repo
         assets: 'polarcraft_survival_resourcepack.zip'
@@ -35,7 +35,7 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       with:
-        tag_name: ${{ VERSION_TAG_NAME }}
+        tag_name: '${{ VERSION_TAG_NAME }}'
         release_name: Folder Zip Release
         draft: false
         prerelease: false
